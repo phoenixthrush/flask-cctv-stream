@@ -12,9 +12,9 @@ class CameraManager:
     def __init__(
         self,
         camera_index=0,
-        frame_width=768,
-        frame_height=432,
-        fps_limit=10,
+        frame_width=1280,
+        frame_height=720,
+        fps_limit=15,
         inactivity_timeout=1,
         logger=None,
     ):
@@ -32,35 +32,14 @@ class CameraManager:
         )
         self.watchdog_thread.start()
 
-    def _find_working_camera_index(self, max_test=4):
-        # Try indices from self.camera_index up to self.camera_index + max_test - 1
-        for idx in range(self.camera_index, self.camera_index + max_test):
-            test_cap = cv2.VideoCapture(idx)
-            if test_cap.isOpened():
-                test_cap.release()
-                return idx
-            test_cap.release()
-        return None
-
     def open_camera(self):
         with self.cap_lock:
             if self.cap is None or not self.cap.isOpened():
-                max_test = 4
-                idx = self._find_working_camera_index(max_test=max_test)
-                if idx is None:
-                    self.cap = None
-                    start = self.camera_index
-                    end = self.camera_index + max_test - 1
-                    raise RuntimeError(
-                        f"Could not find a working camera after trying indices {start}..{end}."
-                    )
-                self.camera_index = idx
+                idx = self.camera_index
                 self.cap = cv2.VideoCapture(self.camera_index)
                 if not self.cap.isOpened():
                     self.cap = None
-                    raise RuntimeError(
-                        f"Could not start camera at index {self.camera_index}."
-                    )
+                    raise RuntimeError(f"Could not start camera at index {idx}.")
                 self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.frame_width)
                 self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.frame_height)
 
