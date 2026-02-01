@@ -1,0 +1,36 @@
+[project]
+name = "flask-cctv-stream"
+version = "0.0.1"
+dependencies = [
+  "Flask",
+  "opencv-python"
+]
+requires-python = ">=3.9"
+authors = [
+  { name="Phoenixthrush UwU", email="contact@phoenixthrush.com" },
+]
+maintainers = [
+  { name="Phoenixthrush UwU", email="contact@phoenixthrush.com" }
+]
+description = "Minimal Flask app for CCTV streaming."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["flask", "cctv", "streaming"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.urls]
+Homepage = "https://github.com/phoenixthrush/flask-cctv-stream"
+Documentation = "https://github.com/phoenixthrush/flask-cctv-stream/blob/main/README.md"
+Repository = "https://github.com/phoenixthrush/flask-cctv-stream.git"
+"Bug Tracker" = "https://github.com/phoenixthrush/flask-cctv-stream/issues"
+Changelog = "https://github.com/phoenixthrush/flask-cctv-stream/commits"
+"Source Code" = "https://github.com/phoenixthrush/flask-cctv-stream"
+"Download" = "https://github.com/phoenixthrush/flask-cctv-stream/archive/refs/heads/main.zip"
+Funding = "https://github.com/sponsors/phoenixthrush"
+
+[project.scripts]
+flask-cctv-stream = "flask_cctv_stream.__main__:main"
